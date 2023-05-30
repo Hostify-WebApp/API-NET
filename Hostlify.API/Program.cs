@@ -51,7 +51,7 @@ builder.Services.AddScoped<IHistoryRepository,HistoryRepository>();
 
 
 var connectionString = builder.Configuration.GetConnectionString("HostlifyConnection");
-var serverVersion = new MySqlServerVersion(new Version(8, 0, 33));//VARIA DEACUERDO A LA VERSION
+var serverVersion = new MySqlServerVersion(new Version(5,0,33));//VARIA DEACUERDO A LA VERSION
 
 //Conexion a MySQL
 builder.Services.AddDbContext<HostlifyDB>(
@@ -85,12 +85,10 @@ using (var context =scope.ServiceProvider.GetService<HostlifyDB>())//Validando s
 
 
 // Configure the HTTP request pipeline.
-if (app.Environment.IsDevelopment())
-{
-    app.UseSwagger();
-    app.UseSwaggerUI();
-    app.UseCors("AllowWepApp");
-}
+
+app.UseSwagger();
+app.UseSwaggerUI();
+app.UseCors("AllowWepApp");
 
 app.UseMiddleware<JwtMiddleware>();
 
